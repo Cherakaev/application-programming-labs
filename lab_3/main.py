@@ -1,39 +1,30 @@
 from HistTools import *
 from ImageTools import *
+from Parser import get_arguments
+from Parser import get_arguments
 
-
-"""
-
-
-plt.figure(figsize=(10, 6))
-histb = cv2.calcHist(img, [0], None, [256], [0, 256])
-histr = cv2.calcHist(img, [1], None, [256], [0, 256])
-histg = cv2.calcHist(img, [2], None, [256], [0, 256])
-plt.title('Image Histogram Channel GFG')
-
-plt.plot(histb, color = 'blue', label = 'Blue channel')
-plt.plot(histg, color = 'green', label = 'Green channel')
-plt.plot(histr, color = 'red', label = 'Red channel')
-
-plt.xlim([0, 256])
-plt.legend()
-plt.grid(True)
-plt.show()"""
 
 def main():
-    image_1 = read_image('image.jpg')
-    print(image_size(image_1))
-    image_2 = read_image('image.jpg')
+    try:
+        args = get_arguments()
 
-    image_1 = cv2.resize(image_1, (400, 500))
-    image_2 = cv2.resize(image_2, (500, 700))
+        image_1 = read_image(args.image_path)
+        image_2 = read_image(args.image_path)
 
-    img_1_res, img_2_res = resize_to_single(image_1, image_2)
+        image_2 = cv2.resize(image_1, (500, 500))
 
-    image_h = image_hconcat(img_1_res, img_2_res)
-    print_differences(image_1, image_h)
+        img_1_res, img_2_res = resize_to_single(image_1, image_2)
+        image_h = image_hconcat(img_1_res, img_2_res)
 
-    save_image('file.jpg', image_h)
+        print(image_size(image_1))
+        print_differences(image_1, image_h)
+
+        save_image('file.jpg', image_h)
+
+        hist = make_hist(image_1)
+        show_hist(hist)
+    except Exception as exc:
+        print(f"Error: {exc}")
 
 if __name__ == "__main__":
     main()
