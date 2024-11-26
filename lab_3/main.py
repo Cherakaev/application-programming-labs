@@ -1,7 +1,6 @@
 from HistTools import *
 from ImageTools import *
 from Parser import get_arguments
-from Parser import get_arguments
 
 
 def main():
@@ -17,7 +16,8 @@ def main():
         image_h = image_hconcat(img_1_res, img_2_res)
 
         print(image_size(image_1))
-        print_differences(image_1, image_h)
+        show_image( image_1, 'original')
+        show_image(image_h, 'result')
 
         save_image('file.jpg', image_h)
 

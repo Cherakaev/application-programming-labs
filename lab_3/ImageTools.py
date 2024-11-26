@@ -44,24 +44,13 @@ def image_vconcat(image_1:np.ndarray, image_2:np.ndarray) -> np.ndarray:
     return image_v
 
 
-def show_image(image:np.ndarray) -> None:
+def show_image(image:np.ndarray, name:str) -> None:
     """
     Function shows image
     :param image: image as an array
     :return: None
     """
-    cv2.imshow('shown_image.jpg', image)
-
-def print_differences(image_1: np.ndarray, image_2: np.ndarray) -> None:
-    """
-    Function prints original and result images
-    :param image_1: original image
-    :param image_2: result image
-    """
-    cv2.imshow('Original image', image_1)
-    cv2.waitKey(0)
-
-    cv2.imshow('Result image', image_2)
+    cv2.imshow(name, image)
     cv2.waitKey(0)
 
 
