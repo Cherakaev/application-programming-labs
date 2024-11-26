@@ -1,20 +1,8 @@
-import cv2
-import numpy as np
-import matplotlib.pyplot as plt
+from HistTools import *
+from ImageTools import *
 
-import ImageTools
-from ImageTools import read_image, image_size, image_hconcat, show_image, reduce_to_single
 
-"""img = cv2.imread('image.jpg')
-img2 = cv2.imread('image.jpg')
-
-image1_resized = cv2.resize(img, (500, 500))  # Задайте нужный размер
-image2_resized = cv2.resize(img2, (500, 500))
-
-im_h = cv2.hconcat([image1_resized, image2_resized])
-cv2.imshow('himage.jpeg', im_h)
-
-print("Image size is ", img.shape)
+"""
 
 
 plt.figure(figsize=(10, 6))
@@ -34,21 +22,18 @@ plt.show()"""
 
 def main():
     image_1 = read_image('image.jpg')
+    print(image_size(image_1))
     image_2 = read_image('image.jpg')
 
     image_1 = cv2.resize(image_1, (400, 500))
     image_2 = cv2.resize(image_2, (500, 700))
 
-    list_of_img = [image_1, image_2]
-    list_of_img = reduce_to_single(list_of_img)
+    img_1_res, img_2_res = resize_to_single(image_1, image_2)
 
-    print(image_size(list_of_img[0]))
-    print(image_size(list_of_img[1]))
+    image_h = image_hconcat(img_1_res, img_2_res)
+    print_differences(image_1, image_h)
 
-    image_h = image_hconcat(list_of_img)
-    print(image_size(image_h))
-    show_image(image_h)
-    cv2.waitKey(0)
+    save_image('file.jpg', image_h)
 
 if __name__ == "__main__":
     main()
