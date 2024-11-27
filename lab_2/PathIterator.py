@@ -1,5 +1,4 @@
 import csv
-from typing import List
 
 
 class PathIterator:
@@ -23,7 +22,6 @@ class PathIterator:
 
 
     def __load_paths(self) -> list[str]:
-        paths_list = []
         with open(self.path, 'r', encoding='utf-8') as file:
             reader = csv.reader(file)
             paths_list = [row[0] for row in reader]

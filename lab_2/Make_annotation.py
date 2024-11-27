@@ -14,14 +14,10 @@ def weed_out_images(dir_path: str) -> list[str]:
         list_of_paths = []
         for filename in os.listdir(dir_path):
             if filename.endswith(('png', 'jpg', 'jpeg')):
-                list_of_paths.append(filename)
+                list_of_paths.append(os.path.join(dir_path, filename))
         return list_of_paths
     else:
-        list_of_paths = []
-        for filename in os.listdir("new_images"):
-            if filename.endswith(('png', 'jpg', 'jpeg')):
-                list_of_paths.append(filename)
-        return list_of_paths
+        raise NotADirectoryError("invalid directory")
 
 
 def create_annot(annotation_path: str, list_of_paths: list[str]) -> None:

@@ -3,7 +3,8 @@ import argparse
 
 def get_arguments() -> argparse.Namespace:
     """
-    Function ret
+    Function gets parameters from cmd
+    :return: argparse.Namespace - simple argparse class which have parameters from cmd
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('key_word', type=str, help='print key word')
