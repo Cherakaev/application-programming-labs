@@ -1,48 +1,33 @@
-import cv2
-import pandas as pd
-
-
-def make_data_frame(path_csv: str) -> pd.DataFrame:
-    """
-    Function makes DataFrame by using file.csv
-    :param path_csv: string path to file.csv
-    :return: DataFrame
-    """
-    data_frame = pd.read_csv(path_csv)
-    data_frame.columns = (["abs_path", "rel_path"])
-    return data_frame
-
-
-def  add_columns(data_frame :pd.DataFrame) -> None:
-    """
-    Function adds 3 columns to DataFrame: Height, Width, Depth
-    :param data_frame: DataFrame with column "abs_path"
-    :return: None
-    """
-    images = [cv2.imread(img) for img in data_frame["abs_path"]]
-    data_frame["Height"] = [img.shape[0] for img in images]
-    data_frame["Width"] = [img.shape[1] for img in images]
-    data_frame["Depth"] = [img.shape[2] for img in images]
-
-
-def get_statistic(data_frame :pd.DataFrame):
-    """
-
-    :param data_frame: DataFrame with columns "Height", "Width", "Depth"
-    :return:
-    """
-    stats = data_frame[["Height", "Width", "Depth"]].describe()
-    return stats
+from DataFrameTools import *
+from HistTools import make_hist
+from Parser import get_arguments
 
 
 def main():
     try:
-        df = make_data_frame("../lab_2/annotation.csv")
+        args = get_arguments()
+        df = make_data_frame(args.annotation_csv)
+        print(df, "\n\n")
+
         add_columns(df)
+        print(df, "\n\n")
+
+        add_area(df)
+        print(df, "\n\n")
+
+        sorted_df_1 = sort_height_width(df, 1000, 900)
+        print(sorted_df_1, "\n\n")
+
+        sorted_df_2 = sort_area(df)
+        print(sorted_df_2, "\n\n")
+
         stats = get_statistic(df)
         print(stats)
+
+        make_hist(df)
     except Exception as exc:
         print(f"Error: {exc}")
+
 
 if __name__ == "__main__":
     main()
